@@ -48,6 +48,11 @@ app.post("/uploadFile", uploadStorage.single("file"), (req, res) => {
 
   return;
 });
+//Multiple files
+// app.post("/upload/multiple", uploadStorage.array("file", 10), (req, res) => {
+//   console.log(req.files);
+//   return res.send("Multiple files");
+// });
 
 app.listen(4000 || process.env.PORT, () => {
   console.log("Server on...");
