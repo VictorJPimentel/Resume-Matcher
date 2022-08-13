@@ -1,0 +1,356 @@
+import React, { useState, useEffect } from "react";
+import { Link, useParams } from "react-router-dom";
+// import getProductByID from "../helpers/getProductByID";
+import Axios from "axios";
+
+function ClientCard1() {
+  const { id } = useParams();
+
+  const [clientID, setClientID] = useState(0);
+  const [newNotes, setNewNotes] = useState("");
+  const [newEmail, setNewEmail] = useState("");
+  const [newFirstName, setNewFirstName] = useState("");
+  const [newLastName, SetNewLastName] = useState("");
+  const [newPhone, setNewPhone] = useState("");
+  const [newGender, setNewGender] = useState("");
+  const [newTB, setNewTB] = useState(0);
+
+  useEffect(() => {
+    (async () => {
+      Axios.get(`http://localhost:4000/users/user/${Number(id)}`).then(
+        (response) => {
+          console.log(response.data);
+          setClientID(response.data[0][0].clientID);
+          setNewEmail(response.data[0][0].userEmail);
+          setNewNotes(response.data[0][0].RecNotes);
+          SetNewLastName(response.data[0][0].nameLast);
+          setNewFirstName(response.data[0][0].nameFirst);
+          setNewPhone(response.data[0][0].userPhone);
+          setNewGender(response.data[0][0].detGender);
+          setNewTB(response.data[0][0].optTrueBurn.data);
+        }
+      );
+    })();
+  }, []);
+
+  const [checked, setChecked] = useState(!!newTB);
+  console.log(!!newTB);
+
+  const deleteClient = (id) => {
+    console.log(id);
+    Axios.delete(`http://localhost:4000/users/delete/id}`).then((response) => {
+      setClientsList(
+        clientsList.filter((val) => {
+          return val.recID !== id;
+        })
+      );
+    });
+  };
+
+  const updateClient = () => {
+    Axios.put("http://localhost:4000/users/update", {
+      id: id,
+      notes: newNotes,
+      email: newEmail,
+      firstName: newFirstName,
+      lastName: newLastName,
+      phone: newPhone,
+      gender: newGender,
+      optTB: 1,
+    }).then((response) => {
+      console.log(response);
+      console.log("Updated");
+    });
+  };
+
+  return (
+    <>
+      {/* <div className="col-span-full xl:col-span-6 bg-yellow-300 shadow-lg rounded-sm border border-slate-200 p-5">
+        <button
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded"
+
+          // onClick={() => {
+          //   deleteClient(id);
+          // }}
+        >
+          Delete
+        </button>
+        <button
+          onClick={() => {
+            updateClient();
+          }}
+          className="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 border border-orange-700 rounded"
+        >
+          Update
+        </button>
+        <form>
+          <h6 className="text-purple-500 text-sm mt-3 mb-6 font-light uppercase">
+            User Information
+          </h6>
+          <div className="flex flex-wrap mt-10">
+            <div className="w-full lg:w-4/12 pr-4 mb-10 font-light">
+              <h1>ID: {id}</h1>
+            </div>
+
+            <div className="w-full lg:w-4/12 pl-4 mb-10 font-light">
+              <label for="firstNames">First Name: </label>
+              <input
+                type="text"
+                color="purple"
+                placeholder="First Name"
+                defaultValue={newFirstName}
+                onChange={(event) => {
+                  setNewFirstName(event.target.value);
+                }}
+              />
+            </div>
+            <div className="w-full lg:w-4/12 pr-4 mb-10 font-light">
+              <label for="lastName">Last Name: </label>
+              <input
+                type="text"
+                color="purple"
+                placeholder="Last Name"
+                defaultValue={newLastName}
+                onChange={(event) => {
+                  SetNewLastName(event.target.value);
+                }}
+              />
+            </div>
+            <div class="w-full lg:w-4/12 pr-4 mb-10 font-light">
+              <img
+                class="object-scale-down h-48 w-96"
+                src={`https://picsum.photos/id/${id}/400/200`}
+              />
+            </div>
+
+            <div className="w-full lg:w-4/12 pr-4 mb-10 font-light">
+              <h1> True Burn: {checked.toString()} </h1>
+              <input
+                type="checkbox"
+                value={checked}
+                onChange={() => setChecked((checked) => !checked)}
+              />
+              {checked ? "checked" : "notChecked"}
+            </div>
+            <div className="w-full lg:w-4/12 pr-4 mb-10 font-light">
+              <label for="gender">Choose a Gender:</label>
+
+              <div className="w-full lg:w-4/12 pr-4 mb-10 font-light">
+                <input
+                  type="text"
+                  color="purple"
+                  placeholder="Write Gender"
+                  defaultValue={newGender}
+                  onChange={(event) => {
+                    setNewGender(event.target.value);
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+
+          <h6 className="text-purple-500 text-sm my-6 font-light uppercase">
+            Contact Information
+          </h6>
+          <div className="flex flex-wrap mt-10">
+            <div className="w-full lg:w-4/12 mb-10 font-light">
+              <input
+                type="email"
+                color="purple"
+                placeholder="Email"
+                defaultValue={newEmail}
+                onChange={(event) => {
+                  setNewEmail(event.target.value);
+                }}
+              />
+            </div>
+
+            <div className="w-full lg:w-4/12 pr-4 mb-10 font-light">
+              <input
+                type="tel"
+                placeholder="Phone"
+                defaultValue={newPhone}
+                onChange={(event) => {
+                  setNewPhone(event.target.value);
+                }}
+              />
+            </div>
+
+            <div className="w-full lg:w-12/12 pl-4 mb-10 font-light">
+              Member Since:
+            </div>
+          </div>
+        </form>
+      </div> */}
+
+<link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet"></link>
+<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+      <div class="container mx-auto my-5 p-5">
+        <div class="md:flex no-wrap md:-mx-2 ">
+          
+            <div class="w-full md:w-3/12 md:mx-2">
+                
+                <div class="bg-white p-3 border-t-4 border-green-400">
+                    <div class="image overflow-hidden">
+                        <img class="h-auto w-full mx-auto"
+                            src="https://lavinephotography.com.au/wp-content/uploads/2017/01/PROFILE-Photography-112.jpg"
+                            alt=""></img>
+                    </div>
+                    <h1 class="text-gray-900 font-bold text-xl leading-8 my-1">Jane Doe</h1>
+                    <h3 class="text-gray-600 font-lg text-semibold leading-6">Customer at The Difference LLC</h3>
+                    <p class="text-sm text-gray-500 hover:text-gray-600 leading-6">Recent memeber</p>
+                    <ul
+                        class="bg-gray-100 text-gray-600 hover:text-gray-700 hover:shadow py-2 px-3 mt-3 divide-y rounded shadow-sm">
+                        <li class="flex items-center py-3">
+                            <span>True Burn</span>
+                            <span class="ml-auto"><span
+                                    class="bg-green-500 py-1 px-2 rounded text-white text-sm">Active</span></span>
+                        </li>
+                        <li class="flex items-center py-3">
+                            <span>Member since</span>
+                            <span class="ml-auto">August 07, 2022</span>
+                        </li>
+                    </ul>
+                </div>
+               
+                <div class="my-4"></div>
+              
+            </div>
+            
+            <div class="w-full md:w-9/12 mx-2 h-64">
+                <div class="bg-white p-3 shadow-sm rounded-sm">
+                    <div class="flex items-center space-x-2 font-semibold text-gray-900 leading-8">
+                        <span clas="text-green-500">
+                            <svg class="h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                            </svg>
+                        </span>
+                        <span class="tracking-wide">About</span>
+                    </div>
+
+                    <div className="col-span-full xl:col-span-6 bg-white-300 shadow-lg rounded-sm border border-slate-200 p-5">
+        <button
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded"
+
+          // onClick={() => {
+          //   deleteClient(id);
+          // }}
+        >
+          Delete
+        </button>
+        <button
+          onClick={() => {
+            updateClient();
+          }}
+          className="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 border border-orange-700 rounded"
+        >
+          Update
+        </button>
+
+                    <div className="w-full lg:w-4/12 pl-4 mb-10 font-light">
+              <label for="firstNames">First Name: </label>
+              <input
+                type="text"
+                color="purple"
+                placeholder="First Name"
+                defaultValue={newFirstName}
+                onChange={(event) => {
+                  setNewFirstName(event.target.value);
+                }}
+              />
+              <div className="w-full lg:w-4/12 pr-4 mb-10 font-light">
+              <label for="lastName">Last Name: </label>
+              <input
+                type="text"
+                color="purple"
+                placeholder="Last Name"
+                defaultValue={newLastName}
+                onChange={(event) => {
+                  SetNewLastName(event.target.value);
+                }}
+              />
+            </div>
+            <div className="w-full lg:w-4/12 pr-4 mb-10 font-light">
+              <h1> True Burn: {checked.toString()} </h1>
+              <input
+                type="checkbox"
+                value={checked}
+                onChange={() => setChecked((checked) => !checked)}
+              />
+              {checked ? "checked" : "notChecked"}
+            </div>
+
+            <div className="w-full lg:w-4/12 pr-4 mb-10 font-light">
+              <label for="gender">Choose a Gender:</label>
+               
+              <div className="w-full lg:w-4/12 pr-4 mb-10 font-light">
+                <input
+                  type="text"
+                  color="purple"
+                  placeholder="Write Gender"
+                  defaultValue={newGender}
+                  onChange={(event) => {
+                    setNewGender(event.target.value);
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+
+                           
+          <h6 className="text-purple-500 text-sm my-6 font-light uppercase">
+            Contact Information
+          </h6>
+          <div className="flex flex-wrap mt-10">
+            <div className="w-full lg:w-4/12 mb-10 font-light">
+              <input
+                type="email"
+                color="purple"
+                placeholder="Email"
+                defaultValue={newEmail}
+                onChange={(event) => {
+                  setNewEmail(event.target.value);
+                }}
+              />
+            </div>
+
+            <div className="w-full lg:w-4/12 pr-4 mb-10 font-light">
+              <input
+                type="tel"
+                placeholder="Phone"
+                defaultValue={newPhone}
+                onChange={(event) => {
+                  setNewPhone(event.target.value);
+                }}
+              />
+            </div>
+                            </div>
+                            {/* <div class="grid grid-cols-2">
+                                <div class="px-4 py-2 font-semibold">Current Address</div>
+                                <div class="px-4 py-2">Beech Creek, PA, Pennsylvania</div>
+                            </div>
+                            <div class="grid grid-cols-2">
+                                <div class="px-4 py-2 font-semibold">Permanant Address</div>
+                                <div class="px-4 py-2">Arlington Heights, IL, Illinois</div>
+                            </div>
+                            <div class="grid grid-cols-2">
+                                <div class="px-4 py-2 font-semibold">Birthday</div>
+                                <div class="px-4 py-2">Feb 06, 1998</div>
+                            </div> */}
+                        </div>
+                    </div>
+                
+                </div>
+
+                <div class="my-4"></div>
+                    
+                </div>
+                </div>
+                
+    </>
+ );
+}   
+   
+export default ClientCard1;

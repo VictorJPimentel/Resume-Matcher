@@ -1,0 +1,99 @@
+defaultValue={newFirstName}
+                onChange={(event) => {
+                  setNewFirstName(event.target.value);
+                }}
+              />
+              <div className="w-full lg:w-4/12 pr-4 mb-10 font-light">
+              <label for="lastName">Last Name: </label>
+              <input
+                type="text"
+                color="purple"
+                placeholder="Last Name"
+                defaultValue={newLastName}
+                onChange={(event) => {
+                  SetNewLastName(event.target.value);
+                }}
+              />
+            </div>
+            <div className="w-full lg:w-4/12 pr-4 mb-10 font-light">
+              <h1> True Burn: {checked.toString()} </h1>
+              <input
+                type="checkbox"
+                value={checked}
+                onChange={() => setChecked((checked) => !checked)}
+              />
+              {checked ? "checked" : "notChecked"}
+            </div>
+
+            <div className="w-full lg:w-4/12 pr-4 mb-10 font-light">
+              <label for="gender">Choose a Gender:</label>
+               
+              <div className="w-full lg:w-4/12 pr-4 mb-10 font-light">
+                <input
+                  type="text"
+                  color="purple"
+                  placeholder="Write Gender"
+                  defaultValue={newGender}
+                  onChange={(event) => {
+                    setNewGender(event.target.value);
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+
+                           
+          <h6 className="text-purple-500 text-sm my-6 font-light uppercase">
+            Contact Information
+          </h6>
+          <div className="flex flex-wrap mt-10">
+            <div className="w-full lg:w-4/12 mb-10 font-light">
+              <input
+                type="email"
+                color="purple"
+                placeholder="Email"
+                defaultValue={newEmail}
+                onChange={(event) => {
+                  setNewEmail(event.target.value);
+                }}
+              />
+            </div>
+
+            <div className="w-full lg:w-4/12 pr-4 mb-10 font-light">
+              <input
+                type="tel"
+                placeholder="Phone"
+                defaultValue={newPhone}
+                onChange={(event) => {
+                  setNewPhone(event.target.value);
+                }}
+              />
+            </div>
+                            </div>
+                            {/* <div class="grid grid-cols-2">
+                                <div class="px-4 py-2 font-semibold">Current Address</div>
+                                <div class="px-4 py-2">Beech Creek, PA, Pennsylvania</div>
+                            </div>
+                            <div class="grid grid-cols-2">
+                                <div class="px-4 py-2 font-semibold">Permanant Address</div>
+                                <div class="px-4 py-2">Arlington Heights, IL, Illinois</div>
+                            </div>
+                            <div class="grid grid-cols-2">
+                                <div class="px-4 py-2 font-semibold">Birthday</div>
+                                <div class="px-4 py-2">Feb 06, 1998</div>
+                            </div> */}
+                        </div>
+                    </div>
+                
+                </div>
+
+                <div class="my-4"></div>
+                    
+                </div>
+                </div>
+                
+    </>
+ );
+}   
+   
+export default ClientCard1;
